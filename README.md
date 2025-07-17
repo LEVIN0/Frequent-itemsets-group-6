@@ -2,6 +2,37 @@
 
 This notebook focuses on simulating transaction data for a supermarket scenario and applying frequent pattern mining using the Apriori algorithm.
 
+## Overview
+
+This repository contains a complete workflow for performing **Market Basket Analysis** using the **Apriori algorithm** in Python. The goal is to simulate transactional data from a supermarket and uncover **frequent itemsets**, including **closed** and **maximal frequent itemsets**, to better understand product association patterns.
+
+The project was developed collaboratively by a team of students as part of a data science course, and follows a structured approach that includes data simulation, preprocessing, analysis, and exporting results for future use.
+
+---
+
+## Project Structure
+
+```
+├── maximal_itemsets.csv                # Output CSV for maximal frequent itemsets
+├── closed_itemsets.csv                 # Output CSV for closed frequent itemsets
+├── frequent_itemsets.csv               # Output CSV for all frequent itemsets
+├── supermarket_transactions.csv        # Raw transaction data
+├── onehot_transactions.csv             # One-hot encoded data
+├── README.md                           # Project documentation
+```
+
+---
+## Requirements
+
+- Python 3.x
+- pandas
+- mlxtend
+- numpy
+
+---
+
+*This project demonstrates collaborative analytical work in Python using real-world retail data modeling techniques.*
+
 ---
 
 ## Objective
@@ -490,6 +521,7 @@ These are the **maximal frequent itemsets** because they are **not subsets** of 
 
 - **Trizah Nzioka** – *tmnalma6@gmail.com*  
   Responsible for **Task 5: Maximal Frequent Itemsets**
+  #### *For questions or feedback, please reach out to any of the contributors listed in the Team Contributions section.*
 
 
 

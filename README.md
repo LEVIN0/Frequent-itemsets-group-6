@@ -363,5 +363,117 @@ Here are some of the resulting closed frequent itemsets:
 
 Identifying **closed frequent itemsets** provides a more compact representation of frequent patterns in the data while preserving all essential support information. This step sets a strong foundation for rule generation and efficient pattern analysis in future steps.
 
+# TASK 5: Maximal Frequent Itemsets
+
+**Student Responsible: Trizah Nzioka**
+
+---
+
+## Overview
+
+In this task, we identify **maximal frequent itemsets** from the itemsets already generated using the **Apriori algorithm**.
+
+A **maximal frequent itemset** is one that is:
+
+- Frequent (meets the minimum support threshold), **and**
+- **Not** a subset of any other frequent itemset.
+
+This means there’s no **larger itemset** (i.e., a superset) that is also frequent.
+
+---
+
+## How It Works
+
+1. Loop through each itemset in the list of frequent itemsets.
+2. For each one, check whether it is a subset of any **other** frequent itemset.
+3. If such a **superset** exists, mark it as **not maximal**.
+4. If no superset is found, it is **maximal** and gets added to the result list.
+5. Save the final results to a CSV file (`maximal_itemsets.csv`).
+6. Display the first few maximal frequent itemsets.
+
+---
+
+## Code
+
+```python
+# [Student: Trizah Nzioka] Find Maximal Frequent Itemsets
+
+# Maximal frequent itemsets are those that:
+# - Are frequent (appear in enough transactions, i.e., ≥ min_support)
+# - Have no **frequent superset** (i.e., no larger itemset that is also frequent)
+
+# Step 1: Create an empty list to hold all maximal itemsets
+maximal_itemsets = []
+
+# Step 2: Loop through each frequent itemset found using Apriori
+for i, row in frequent_itemsets.iterrows():
+    current_itemset = row['itemsets']  # The itemset under consideration
+    is_maximal = True                  # Assume it's maximal unless proven otherwise
+
+    # Step 3: Compare current_itemset with all other itemsets
+    for j, other_row in frequent_itemsets.iterrows():
+        other_itemset = other_row['itemsets']
+
+        # Check if there's a **proper superset** of current_itemset
+        # If yes, current_itemset is not maximal
+        if current_itemset < other_itemset:
+            is_maximal = False
+            break   # No need to continue checking other itemsets
+
+    # Step 4: If no frequent superset was found, add to maximal list
+    if is_maximal:
+        maximal_itemsets.append((current_itemset, row['support']))
+
+# Step 5: Convert the list of maximal itemsets into a DataFrame
+maximal_df = pd.DataFrame(maximal_itemsets, columns=["itemsets", "support"])
+
+# Step 6: Save results to a CSV file (optional for reporting)
+maximal_df.to_csv("maximal_itemsets.csv", index=False)
+
+# Step 7: Print the first 5 maximal frequent itemsets for review
+print("Maximal Frequent Itemsets (first 5):")
+print(maximal_df)
+```
+
+---
+
+## Output
+
+```plaintext
+Maximal Frequent Itemsets (first 5):
+                     itemsets  support
+0                      (beef)     0.08
+1                   (carrots)     0.07
+2                    (cereal)     0.08
+3                 (chocolate)     0.07
+4                    (coffee)     0.07
+5                    (grapes)     0.08
+6                 (ice cream)     0.07
+7                     (juice)     0.07
+8                   (lettuce)     0.08
+9                    (onions)     0.07
+10                  (oranges)     0.08
+11                    (pasta)     0.07
+12                 (potatoes)     0.08
+13                      (tea)     0.07
+14             (toilet paper)     0.07
+15                 (tomatoes)     0.08
+16                    (water)     0.07
+17              (milk, bread)     0.12
+18  (yogurt, apples, bananas)     0.10
+19     (beans, chicken, rice)     0.10
+20     (eggs, cheese, butter)     0.11
+21     (soda, cookies, chips)     0.13
+```
+
+---
+
+
+These are the **maximal frequent itemsets** because they are **not subsets** of any larger frequent itemset in the dataset.
+
+
+
+
+
 
 

@@ -137,3 +137,74 @@ Sample Transactions:
 - The transactions are saved as strings for convenience and can be processed later into a basket format for mining algorithms.
 
 ---
+
+# Task 2: Convert Transactions to One-Hot Encoded Format After Cleaning
+
+In this task, we convert the simulated supermarket transaction data into a one-hot encoded format.
+
+This transformation is necessary for applying the `apriori()` algorithm from the `mlxtend.frequent_patterns` module. One-hot encoding involves converting each transaction into a row, with items as columns and Boolean values (`True` or `False`) indicating whether an item is present in the transaction.
+
+### Student Responsible: Levin Ekuam  
+*Modified by: Hana Gashaw*
+
+---
+
+## 🔧 Step-by-Step Code with Explanation
+
+```python
+# Required libraries
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori
+import pandas as pd
+
+# Step 1: Drop any rows where the transaction is missing (NaN or empty string)
+transactions_df.dropna(subset=['Transaction'], inplace=True)
+transactions_df = transactions_df[transactions_df['Transaction'].str.strip() != '']
+
+# Step 2: Reset index after cleaning
+transactions_df.reset_index(drop=True, inplace=True)
+
+# Step 3: Convert the transaction strings to lists
+transactions = transactions_df['Transaction'].apply(lambda x: x.strip().split(', '))
+```
+
+---
+
+## Encoding Using TransactionEncoder
+
+```python
+# Step 4: Initialize the encoder
+te = TransactionEncoder()
+
+# Step 5: Fit and transform the transactions
+te_ary = te.fit(transactions).transform(transactions)
+
+# Step 6: Create the encoded DataFrame
+df_encoded = pd.DataFrame(te_ary, columns=te.columns_)
+```
+
+---
+
+## Output: One-Hot Encoded Transaction Data
+
+```python
+df_encoded.head()
+```
+
+**Sample Output:**
+
+| apples | bananas | beans | beef | bread | butter | carrots | cereal | cheese | chicken | ... | oranges | pasta | potatoes | rice | soda | tea | toilet paper | tomatoes | water | yogurt |
+|--------|---------|-------|------|--------|--------|----------|--------|--------|----------|-----|----------|--------|-----------|------|------|-----|----------------|-----------|--------|--------|
+| False  | False   | False | False | False | False | False   | False | False | False   | ... | False   | False | False     | False | False | True | False         | False     | False | False  |
+| False  | False   | False | False | True  | False | False   | False | False | False   | ... | False   | False | False     | False | False | False | False         | True      | False | False  |
+| False  | False   | False | False | False | False | False   | False | False | False   | ... | False   | False | False     | False | True  | True | False         | False     | False | False  |
+| False  | False   | False | False | False | False | True    | False | False | False   | ... | False   | False | False     | False | False | False | False         | False     | False | False  |
+| False  | False   | False | False | False | False | False   | False | False | False   | ... | False   | False | False     | False | False | False | False         | True      | False | False  |
+
+(*Note: Output is truncated for brevity; full dataset includes 30+ item columns and 3,000 rows.*)
+
+---
+
+**Conclusion:**  
+We've successfully cleaned the transaction data and converted it into a one-hot encoded format. This DataFrame can now be used to apply frequent itemset mining algorithms such as Apriori to discover frequent, closed, and maximal itemsets.
+

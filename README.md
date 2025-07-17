@@ -275,4 +275,93 @@ frequent_itemsets.head(10).to_csv('frequent_itemsets.csv', index=False)
 **Conclusion:**  
 The Apriori algorithm successfully identified items (and item combinations) that occur frequently across transactions. These frequent itemsets can be used in subsequent steps such as generating association rules for recommendation systems or market basket analysis.
 
+# Task: Find Closed Frequent Itemsets
+
+In this task, we identify **Closed Frequent Itemsets** from the list of frequent itemsets generated earlier using the Apriori algorithm. A frequent itemset is considered **closed** if none of its **proper supersets** have the same support value. This helps in reducing redundancy while retaining all useful association information.
+
+### Student Responsible: Angela Irungu
+
+---
+
+##  What is a Closed Frequent Itemset?
+
+A **closed frequent itemset** is one where **no superset** of the itemset has **the same support**. Closed itemsets are useful because they compactly represent all frequent itemsets without losing any support information.
+
+---
+
+##  Step-by-Step Code with Explanation
+
+```python
+# NOTE: Assumes that 'frequent_itemsets' has already been generated 
+# using the apriori() function
+
+# Step 1: Initialize a list to hold closed itemsets
+closed_itemsets = []
+
+# Step 2: Loop through each frequent itemset and compare it with others
+for i, row in frequent_itemsets.iterrows():
+    current_itemset = row['itemsets']
+    current_support = row['support']
+    is_closed = True  # Start by assuming the itemset is closed
+
+    # Step 3: Check for a proper superset with the same support
+    for j, other_row in frequent_itemsets.iterrows():
+        other_itemset = other_row['itemsets']
+        other_support = other_row['support']
+
+        # If another itemset is a proper superset and has equal support, current is not closed
+        if current_itemset < other_itemset and current_support == other_support:
+            is_closed = False
+            break
+
+    # Step 4: If no such superset is found, add to closed itemsets
+    if is_closed:
+        closed_itemsets.append((current_itemset, current_support))
+```
+
+```python
+# Step 5: Convert closed itemsets to DataFrame for display and export
+closed_df = pd.DataFrame(closed_itemsets, columns=["itemsets", "support"])
+
+# Step 6: Export the closed itemsets to a CSV file (optional)
+closed_df.to_csv("closed_itemsets.csv", index=False)
+
+# Step 7: Display the result
+print("Closed Frequent Itemsets:")
+print(closed_df)
+```
+
+---
+
+## Output: Closed Frequent Itemsets
+
+Here are some of the resulting closed frequent itemsets:
+
+| itemsets                 | support |
+|--------------------------|---------|
+| (apples)                 | 0.17    |
+| (bananas)                | 0.17    |
+| (beans)                  | 0.17    |
+| (beef)                   | 0.08    |
+| (bread)                  | 0.17    |
+| (butter)                 | 0.18    |
+| (carrots)                | 0.07    |
+| (cereal)                 | 0.08    |
+| (cheese)                 | 0.18    |
+| (chicken)                | 0.17    |
+| ...                      | ...     |
+| (yogurt, apples)         | 0.11    |
+| (milk, bread)            | 0.12    |
+| (soda, cookies, chips)   | 0.13    |
+| (eggs, cheese, butter)   | 0.11    |
+
+>  **Note:** This table only shows a subset of the closed itemsets. The full list was exported to `closed_itemsets.csv`.
+
+---
+
+## Conclusion
+
+Identifying **closed frequent itemsets** provides a more compact representation of frequent patterns in the data while preserving all essential support information. This step sets a strong foundation for rule generation and efficient pattern analysis in future steps.
+
+
 

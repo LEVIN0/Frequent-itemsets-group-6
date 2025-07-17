@@ -208,3 +208,71 @@ df_encoded.head()
 **Conclusion:**  
 We've successfully cleaned the transaction data and converted it into a one-hot encoded format. This DataFrame can now be used to apply frequent itemset mining algorithms such as Apriori to discover frequent, closed, and maximal itemsets.
 
+# Task 3: Find Frequent Itemsets using the Apriori Algorithm
+
+In this task, we apply the **Apriori algorithm** from the `mlxtend.frequent_patterns` module to identify **frequent itemsets**—combinations of items that appear together in transactions with a minimum support threshold of **5%** (0.05).
+
+The algorithm returns all itemsets whose **support** (i.e., the proportion of transactions that contain the itemset) is at least 0.05. We then round the support values for readability and display the top 10 frequent itemsets based on this metric.
+
+### Student Responsible: Ted Korir
+
+---
+
+## 🔧 Step-by-Step Code with Explanation
+
+```python
+from mlxtend.frequent_patterns import apriori
+
+# ----------------------------------------
+# Step 1: Generate frequent itemsets
+# ----------------------------------------
+# Using Apriori to extract frequent itemsets with minimum support of 0.05
+# Setting use_colnames=True ensures the item names appear in the output
+frequent_itemsets = apriori(df_encoded, min_support=0.05, use_colnames=True)
+```
+
+```python
+# ----------------------------------------
+# Step 2: Round support values
+# ----------------------------------------
+# The support column shows the proportion of transactions containing each itemset
+# Rounding to 2 decimal places for clarity
+frequent_itemsets['support'] = frequent_itemsets['support'].round(2)
+```
+
+```python
+# ----------------------------------------
+# Step 3: Display top 10 frequent itemsets
+# ----------------------------------------
+# Show the first 10 most frequent itemsets
+print(frequent_itemsets.head(10))
+```
+
+```python
+# Optional: Export top 10 itemsets to a CSV file for reporting
+frequent_itemsets.head(10).to_csv('frequent_itemsets.csv', index=False)
+```
+
+---
+
+## Output: Top 10 Frequent Itemsets
+
+| support | itemsets     |
+|---------|--------------|
+| 0.17    | (apples)     |
+| 0.17    | (bananas)    |
+| 0.17    | (beans)      |
+| 0.08    | (beef)       |
+| 0.17    | (bread)      |
+| 0.18    | (butter)     |
+| 0.07    | (carrots)    |
+| 0.08    | (cereal)     |
+| 0.18    | (cheese)     |
+| 0.17    | (chicken)    |
+
+---
+
+**Conclusion:**  
+The Apriori algorithm successfully identified items (and item combinations) that occur frequently across transactions. These frequent itemsets can be used in subsequent steps such as generating association rules for recommendation systems or market basket analysis.
+
+

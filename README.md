@@ -471,7 +471,25 @@ Maximal Frequent Itemsets (first 5):
 
 These are the **maximal frequent itemsets** because they are **not subsets** of any larger frequent itemset in the dataset.
 
+### Team Contributions Summary
 
+- **Selmah Tzindori** – *tzindori@gmail.com*  
+  Responsible for **Task 1: Simulate Supermarket Transaction Data**
+
+- **Hana Gashaw** – *21ibtj@gmail.com*  
+  Contributed to **Task 1** by making the data generation reproducible, assisted in **Task 2** by cleaning missing values, and authored the **README file**. She also reviewed and ensured the consistency and accuracy of all sections.
+
+- **Levin Ekuam** – *lekuam1@gmail.com*  
+  Responsible for **Task 2: Convert Transactions to One-Hot Encoded Format**
+
+- **Ted Korir** – *koechted18@gmail.com*  
+  Responsible for **Task 3: Find Frequent Itemsets using the Apriori Algorithm**
+
+- **Angela Irungu** – *Irunguangela05@gmail.com*  
+  Responsible for **Task 4: Find Closed Frequent Itemsets**
+
+- **Trizah Nzioka** – *tmnalma6@gmail.com*  
+  Responsible for **Task 5: Maximal Frequent Itemsets**
 
 
 

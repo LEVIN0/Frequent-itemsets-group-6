@@ -471,7 +471,7 @@ Maximal Frequent Itemsets (first 5):
 
 These are the **maximal frequent itemsets** because they are **not subsets** of any larger frequent itemset in the dataset.
 
-### Team Contributions Summary
+# **Team Contributions Summary**
 
 - **Selmah Tzindori** – *tzindori@gmail.com*  
   Responsible for **Task 1: Simulate Supermarket Transaction Data**

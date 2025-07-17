@@ -17,7 +17,7 @@ The project was developed collaboratively by a team of students as part of a dat
 ├── closed_itemsets.csv                 # Output CSV for closed frequent itemsets
 ├── frequent_itemsets.csv               # Output CSV for all frequent itemsets
 ├── supermarket_transactions.csv        # Raw transaction data
-├── onehot_transactions.csv             # One-hot encoded data
+├── frequent_itemsets_analysis.ipynb	# Fully commented notebook
 ├── README.md                           # Project documentation
 ```
 
